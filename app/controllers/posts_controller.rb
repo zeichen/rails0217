@@ -5,7 +5,6 @@ class PostsController < ApplicationController
 
 
 	def new
-		
 		@post = @group.posts.new
 	end
 
@@ -17,6 +16,7 @@ class PostsController < ApplicationController
 	def create 
 	
 	@post =current_user.posts.build(post_params)
+	@post.author = current_user
 
 	if @post.save
 		redirect_to group_path(@group), notice:"新增文章成功"
