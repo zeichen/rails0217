@@ -9,7 +9,7 @@ class GroupsController < ApplicationController
 		@group= Group.new
 	end
 	def create 
-		@group= Group.create(group_params)
+		@group= current_user.groups.create(group_params)
 		if @group.save
 			current_user.join!(@group)
 			redirect_to groups_path
@@ -23,10 +23,10 @@ class GroupsController < ApplicationController
 		@posts = @group.posts
 	end
 	def edit 
-		@group = Group.find(params[:id])
+		@group = current_user.groups.find(params[:id])
 	end
 	def update 
-		@group = Group.find(params[:id])
+		@group = current_user.groups.find(params[:id])
 		if(@group.update(group_params))
 			redirect_to groups_path, notice:"修改成功"
 		else
@@ -34,8 +34,8 @@ class GroupsController < ApplicationController
 		end
 	end
 
-	def destory 
-		@group = Group.find(params[:id])
+	def destroy 
+		@group = current_user.groups.find(params[:id])
 		@group.destroy 
 		redirect_to groups_path, alert:"討論版已刪除"
 	end
