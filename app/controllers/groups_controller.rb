@@ -9,7 +9,7 @@ class GroupsController < ApplicationController
 		@group= Group.new
 	end
 	def create 
-		@group= current_user.groups.create(group_params)
+		@group=current_user.groups.create(group_params)
 		if @group.save
 			current_user.join!(@group)
 			redirect_to groups_path
